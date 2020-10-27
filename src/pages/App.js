@@ -18,7 +18,7 @@ function Home() {
       <Header title="Bra chat" user="gil" />
       <Header title="sisputas" user="hudson" />
       <h5>Hello World2</h5>
-      <Link to="/profile">
+      <Link to="/profile" target="_blank">
       <p>Ir pra Profile</p>
       </Link>
     </div>

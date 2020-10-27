@@ -1,5 +1,5 @@
-const express = require('express');
-const path = require('path');
+const express = require('express'); //  express para criar o servidor
+const path = require('path'); // path 
 // const allowCors = require('./config/cors')
 const app = express();
 
