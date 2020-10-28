@@ -16,16 +16,40 @@ const Login: React.FC = () => {
     if (mail === "" || password === "") {
       alert("Preencha Todos os campos!")
     } else {
-      console.log({ mail, password })
+      // console.log({ mail, password })
       setloading(true);
-      
-      if(mail === 'mail@mail.com' && password === "1234"){
-        return history.push('/home');
-      }else{
-        alert("Senha ou e-mail não conferem!")        
-      }
 
-      setTimeout(()=>{
+      // if(mail === 'mail@mail.com' && password === "1234"){
+      //   return history.push('/home');
+      // }else{
+      //   alert("Senha ou e-mail não conferem!")        
+      // }
+
+      let data = new FormData();
+      data.append("json", JSON.stringify({
+        mail: mail,
+        password: password
+      }
+      ));
+
+
+
+      fetch("http://localhost:3333/sessions",
+        {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: data
+        }).then(data => {
+          return data.json();
+        }).then(resp => {
+          console.log("MESSAGE", resp);
+
+        }).catch(ERRO => {
+          console.log("ERRO", ERRO);
+
+        });
+
+      setTimeout(() => {
         setloading(false);
       }, 2000);
 
@@ -35,8 +59,8 @@ const Login: React.FC = () => {
   return (
     <div className="container">
       <div className="titlelogin">
-          <h5>Granistone</h5>
-          </div>
+        <h5>Granistone</h5>
+      </div>
       <div className="spancolordiv" />
 
       <div className="cardlogin">
