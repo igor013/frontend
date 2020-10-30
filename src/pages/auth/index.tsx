@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 import './index.css';
+
 
 const Login: React.FC = () => {
   const history = useHistory();
 
+  const [ismouted, setismouted] = useState(false);
+  const [userdata, setuserdata] = useState(localStorage.getItem('user') || '');
   const [loading, setloading] = useState(false);
-  const [mail, setmail] = useState('mail@mail.com');
-  const [password, setpassword] = useState('1234');
+  const [mail, setmail] = useState('admin@mail.com');
+  const [password, setpassword] = useState('123456');
+
+useEffect(()=>{
+if(!ismouted){  
+  setismouted(true);
+}
+},[ismouted]);
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,28 +36,30 @@ const Login: React.FC = () => {
       //   alert("Senha ou e-mail não conferem!")        
       // }
 
-      let data = new FormData();
-      data.append("json", JSON.stringify({
+      let data = {
         mail: mail,
         password: password
       }
-      ));
 
+      api.post('/sessions', data)
+        .then(function (response) {
+          // console.log(response);
+          let user = response.data.user;
+          let token = response.data.token;
+          console.log(user,token);
+          localStorage.setItem('user',JSON.stringify(user)); // salva a variável no browser 
+          localStorage.setItem('token',token); // salva a variável no browser 
+          history.push('/home')
+          
+        })
+        .catch(function (error) {
+          // console.log('Erro na request', error.response);
+          if(error.response.data){
+            // console.log(data);
+            
+            alert(error.response.data.message);
 
-
-      fetch("http://localhost:3333/sessions",
-        {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: data
-        }).then(data => {
-          return data.json();
-        }).then(resp => {
-          console.log("MESSAGE", resp);
-
-        }).catch(ERRO => {
-          console.log("ERRO", ERRO);
-
+          }
         });
 
       setTimeout(() => {
