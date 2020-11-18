@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../pages/auth/index';
 import Home from '../pages/home/index';
 import Profile from '../pages/profile/index';
+import User from '../pages/user/index';
 
 const Routes: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const Routes: React.FC = () => {
             <Switch>
                 <Route path="/" exact component={Login} />
                 <Route path="/home" exact component={Home} />
+                <Route path="/user" exact component={User} />
                 <Route path="/profile" exact component={Profile} />
 
                 {/* <RoutesPrivates path="/home" exact component={props => <ClientLayout><Home {...props} /></ClientLayout>} /> */}

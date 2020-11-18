@@ -351,7 +351,7 @@ const api = axios.create({
 export default api;
 ```
 
--- No nosso arquivo de login, src;/pages/auth/index.tsx vamos executar os seguintes passos:
+-- No nosso arquivo de login, src/pages/auth/index.tsx vamos executar os seguintes passos:
 
 - Importar no topo do arquivo o service/api.ts que criamos:
 
